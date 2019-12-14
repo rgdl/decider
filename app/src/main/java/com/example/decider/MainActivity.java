@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void handleClickDeciderButton(int options) {
-        Log.d("HERE!", "decided...");
+        Random random = new Random();
+        int choice = random.nextInt(options) + 1;
+
+        TextView resultsText = (TextView) findViewById(R.id.resultsText);
+
+        resultsText.setText(String.format("Choose option %d", choice));
     }
 }
