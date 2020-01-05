@@ -2,5 +2,6 @@
     <string name="app_name">Decider</string>
     <string name="number_input_label">How many options are there?</string>
     <string name="number_input_hint">Enter a number</string>
-    <string name="decider_button_label">Decide</string>
+    <string name="decider_button_label_before">Decide</string>
+    <string name="decider_button_label_after">Another Decision?</string>
 </resources>
