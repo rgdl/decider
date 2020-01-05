@@ -28,16 +28,10 @@
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"/>
-                <TextView
+                <ListView
+                    android:id="@+id/options_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/number_input_label"/>
-                <EditText
-                    android:id="@+id/nOptions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/number_input_hint"
-                    android:inputType="number"/>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <!-- Display in results state -->
