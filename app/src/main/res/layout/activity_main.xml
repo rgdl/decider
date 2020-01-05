@@ -10,27 +10,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/number_input_label"/>
-        <EditText
-            android:id="@+id/nOptions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/number_input_hint"
-            android:inputType="number"/>
-        <Button
-            android:id="@+id/deciderButton"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/resultsText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:orientation="vertical">
 
+            <!-- Display in input state -->
+            <LinearLayout
+                android:id="@+id/input_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/add_option_button"
+                    android:text="@string/add_option_button_label"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/number_input_label"/>
+                <EditText
+                    android:id="@+id/nOptions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/number_input_hint"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <!-- Display in results state -->
+            <LinearLayout
+                android:id="@+id/results_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/resultsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/decider_button"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
