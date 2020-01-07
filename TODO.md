@@ -1,7 +1,6 @@
 # TODO
 
 - Let user name the choices
-- Let user delete choices
 - Make UI layout more visually pleasing
 - make an icon (look at other icons to help decide)
 - simplify README

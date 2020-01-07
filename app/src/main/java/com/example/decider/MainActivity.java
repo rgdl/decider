@@ -2,7 +2,6 @@ package com.example.decider;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ListView optionsListView = findViewById(R.id.options_list);
-        optionsListView.setAdapter(new ArrayAdapter<>(this, R.layout.options_list_item, options));
+        optionsListView.setAdapter(new OptionAdapter(this, options));
 
         LinearLayout inputLayout = findViewById(R.id.input_content);
         LinearLayout resultsLayout = findViewById(R.id.results_content);
