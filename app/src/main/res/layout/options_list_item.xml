@@ -4,11 +4,11 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:orientation="horizontal">
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/option_text">
-    </TextView>
+    </EditText>
     <Button
         android:id="@+id/delete_option_button"
         android:text="@string/delete_option_button_label"

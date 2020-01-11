@@ -14,12 +14,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int INTIAL_OPTION_COUNT = 2;
 
     boolean decisionMade = false;
-    ArrayList<String> options = new ArrayList<>();
+    ArrayList<Option> options = new ArrayList<>();
 
     TextView resultsText;
 
-    private String defaultOptionText(int optionNumber) {
-        return String.format("option %d", optionNumber);
+    private Option defaultOptionText(int optionNumber) {
+        return new Option(optionNumber);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     void handleClickDeciderButton(Button deciderButton, LinearLayout inputLayout, LinearLayout resultsLayout) {
         if (!decisionMade) {
             Random random = new Random();
-            String choice = options.get(random.nextInt(options.size()));
+            String choice = options.get(random.nextInt(options.size())).getText();
             resultsText.setText("Choose: " + choice);
 
             decisionMade = true;

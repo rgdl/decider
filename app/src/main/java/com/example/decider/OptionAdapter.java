@@ -1,22 +1,27 @@
 package com.example.decider;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class OptionAdapter extends BaseAdapter implements ListAdapter {
-    private ArrayList<String> options;
+    private ArrayList<Option> options;
     private Context context;
 
-    public OptionAdapter(Context context, ArrayList<String> options) {
-        this.options= options;
+    public OptionAdapter(Context context, ArrayList<Option> options) {
+        this.options = options;
         this.context = context;
     }
 
@@ -49,8 +54,18 @@ public class OptionAdapter extends BaseAdapter implements ListAdapter {
             notifyDataSetChanged();
         });
 
-        TextView optionText = view.findViewById(R.id.option_text);
-        optionText.setText(options.get(position));
+        EditText optionText = view.findViewById(R.id.option_text);
+        optionText.setHint(options.get(position).getText());
+
+        optionText.addTextChangedListener(new TextWatcher() {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            public void afterTextChanged(Editable s) {
+                options.get(position).setText(s.toString());
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
 
         return view;
     }
