@@ -2,16 +2,23 @@ package com.example.decider;
 
 class Option {
     private String text;
+    private String placeHolder;
 
     Option(int optionNumber) {
-        text = String.format("option %d", optionNumber);
+        text = "";
+        placeHolder = String.format("option %d", optionNumber);
     }
 
     String getText() {
-        return text;
+        return text.equals("") ? placeHolder : text;
     }
 
     void setText(String newText) {
         text = newText;
+    }
+
+    @Override
+    public String toString() {
+        return getText();
     }
 }

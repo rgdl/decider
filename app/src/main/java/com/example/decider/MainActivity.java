@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void handleClickDeciderButton(Button deciderButton, LinearLayout inputLayout, LinearLayout resultsLayout) {
+        if (options.size() == 0) {
+            return;
+        }
         if (!decisionMade) {
             Random random = new Random();
             String choice = options.get(random.nextInt(options.size())).getText();
