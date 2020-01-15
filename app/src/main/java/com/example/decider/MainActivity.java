@@ -1,11 +1,17 @@
 package com.example.decider;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -17,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Option> options = new ArrayList<>();
 
     TextView resultsText;
+
+    private AdView mAdView;
 
     private Option defaultOptionText(int optionNumber) {
         return new Option(optionNumber);
@@ -44,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
         addOptionButton.setOnClickListener(v -> handleClickAddOptionButton(optionsListView));
 
         resultsText = findViewById(R.id.resultsText);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     void handleClickDeciderButton(Button deciderButton, LinearLayout inputLayout, LinearLayout resultsLayout) {
