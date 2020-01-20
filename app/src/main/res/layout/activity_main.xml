@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorDark"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -15,8 +16,6 @@
             android:id="@+id/adView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
             ads:adSize="BANNER"
             ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
             <!--        This one is real:
@@ -40,6 +39,8 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"
+                    android:background="@drawable/add_button_background"
+                    android:textColor="@color/colorLight"
                     android:gravity="center"/>
                 <ListView
                     android:id="@+id/options_list"
@@ -56,6 +57,7 @@
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/resultsText"
+                    android:textColor="@color/colorLight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -65,6 +67,8 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
+                android:background="@drawable/decide_button_background"
+                android:textColor="@color/colorLight"
                 android:gravity="center"/>
 
         </LinearLayout>
