@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_marginLeft="10dp"
+    android:paddingLeft="@dimen/option_list_item_horizontal_padding"
+    android:paddingRight="@dimen/option_list_item_horizontal_padding"
+    android:paddingTop="@dimen/option_list_item_top_padding"
     android:orientation="horizontal">
     <EditText
         android:background="@drawable/option_text_background"
@@ -12,6 +14,8 @@
         android:layout_height="match_parent"
         android:textColor="@color/colorDecide"
         android:textColorHint="@color/colorDecide"
+        android:paddingLeft="@dimen/option_text_padding_horizontal"
+        android:paddingRight="@dimen/option_text_padding_horizontal"
         android:id="@+id/option_text">
     </EditText>
     <Button

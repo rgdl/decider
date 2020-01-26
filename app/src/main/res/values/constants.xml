@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
+    CHECK:
+    button_top_margin = button_bottom_margin + option_list_item_top_padding
+    results_text_top_padding = results_text_bottom_padding + button_top_margin
+    -->
     <dimen name="corner_radius">8dp</dimen>
+
+    <!-- Buttons -->
+    <dimen name="button_padding">20dp</dimen>
+    <dimen name="button_top_margin">20dp</dimen>
+    <dimen name="button_bottom_margin">15dp</dimen>
+
+    <!-- Results text -->
+    <dimen name="results_text_horizontal_margin">24dp</dimen>
+    <dimen name="results_text_top_padding">20dp</dimen>
+    <dimen name="results_text_bottom_padding">0dp</dimen>
+
+    <!-- Option list -->
+    <dimen name="option_text_padding_horizontal">12dp</dimen>
+    <dimen name="option_list_item_top_padding">5dp</dimen>
+    <dimen name="option_list_item_horizontal_padding">24dp</dimen>
+
 </resources>

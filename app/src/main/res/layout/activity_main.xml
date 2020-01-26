@@ -16,6 +16,7 @@
             android:id="@+id/adView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             ads:adSize="BANNER"
             ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
             <!--        This one is real:
@@ -39,10 +40,15 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"
+                    android:paddingLeft="@dimen/button_padding"
+                    android:paddingRight="@dimen/button_padding"
                     android:background="@drawable/add_button_background"
                     android:textColor="@color/colorLight"
+                    android:layout_marginTop="@dimen/button_top_margin"
+                    android:layout_marginBottom="@dimen/button_bottom_margin"
                     android:gravity="center"/>
                 <ListView
+                    android:divider="@null"
                     android:id="@+id/options_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -59,6 +65,10 @@
                     android:id="@+id/resultsText"
                     android:textColor="@color/colorLight"
                     android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/results_text_horizontal_margin"
+                    android:layout_marginRight="@dimen/results_text_horizontal_margin"
+                    android:paddingTop="@dimen/results_text_top_padding"
+                    android:paddingBottom="@dimen/results_text_bottom_padding"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -69,6 +79,9 @@
                 android:layout_gravity="center"
                 android:background="@drawable/decide_button_background"
                 android:textColor="@color/colorLight"
+                android:paddingLeft="@dimen/button_padding"
+                android:paddingRight="@dimen/button_padding"
+                android:layout_marginTop="@dimen/button_top_margin"
                 android:gravity="center"/>
 
         </LinearLayout>
