@@ -14,6 +14,7 @@
         android:layout_height="match_parent"
         android:textColor="@color/colorDecide"
         android:textColorHint="@color/colorDecide"
+        android:textSize="@dimen/default_font_size"
         android:paddingLeft="@dimen/option_text_padding_horizontal"
         android:paddingRight="@dimen/option_text_padding_horizontal"
         android:id="@+id/option_text">
@@ -24,6 +25,7 @@
         android:layout_marginRight="0dp"
         android:text="@string/delete_option_button_label"
         android:background="@drawable/delete_button_background"
+        android:textSize="@dimen/default_font_size"
         android:textColor="@color/colorLight"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"/>

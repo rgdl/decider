@@ -1,8 +1,8 @@
 # TODO
 
 - Make UI layout more visually pleasing
-* font sizes
-* what happens when the list is too long, or the option text is too long?!
+* what happens when the list is too long?
+* what happens when the option text is too long?!
 * results more vertically centered (split decider button into 2 distinct elements)
 
 - make an icon (look at other icons to help decide, use app colour scheme)
@@ -11,4 +11,4 @@
 - don't forget to uncomment my real ad id before launch!
 - add intent filters: https://developer.android.com/studio/write/app-link-indexing#intent
 - animate option add/delete?
-- make sure list of options is retained on screen rotate
+- make sure list of options and state (option entry vs results)is retained on screen rotate

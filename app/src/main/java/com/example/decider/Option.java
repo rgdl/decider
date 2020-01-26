@@ -6,7 +6,7 @@ class Option {
 
     Option(int optionNumber) {
         text = "";
-        placeHolder = String.format("option %d", optionNumber);
+        placeHolder = String.format("Option %d", optionNumber);
     }
 
     String getText() {

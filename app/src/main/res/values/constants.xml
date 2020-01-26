@@ -5,9 +5,12 @@
     button_top_margin = button_bottom_margin + option_list_item_top_padding
     results_text_top_padding = results_text_bottom_padding + button_top_margin
     -->
+    <!-- Global -->
+    <dimen name="default_font_size">20sp</dimen>
     <dimen name="corner_radius">8dp</dimen>
 
     <!-- Buttons -->
+    <dimen name="button_text_font_size">18sp</dimen>
     <dimen name="button_padding">20dp</dimen>
     <dimen name="button_top_margin">20dp</dimen>
     <dimen name="button_bottom_margin">15dp</dimen>
