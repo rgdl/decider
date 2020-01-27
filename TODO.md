@@ -1,9 +1,8 @@
 # TODO
 
 - Make UI layout more visually pleasing
-* what happens when the list is too long?
 * what happens when the option text is too long?!
-* results more vertically centered (split decider button into 2 distinct elements)
+* results more vertically centered (split decider button into 2 distinct elements, and format results text)
 
 - make an icon (look at other icons to help decide, use app colour scheme)
 - good simple README, to become app store description (look at competitors, make it similar but distinctive)

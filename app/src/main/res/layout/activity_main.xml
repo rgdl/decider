@@ -51,8 +51,28 @@
                 <ListView
                     android:divider="@null"
                     android:id="@+id/options_list"
+                    android:layout_weight="50"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+                <!--
+                Use top button margin as bottom margin here, so it's not eaten into by option list
+                top margin
+                -->
+                <Button
+                    android:id="@+id/decider_button"
+                    android:text="@string/decider_button_label"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/decide_button_background"
+                    android:textColor="@color/colorLight"
+                    android:textSize="@dimen/button_text_font_size"
+                    android:paddingLeft="@dimen/button_padding"
+                    android:paddingRight="@dimen/button_padding"
+                    android:layout_marginTop="@dimen/button_top_margin"
+                    android:layout_marginBottom="@dimen/button_top_margin"
+                    android:gravity="center"/>
             </LinearLayout>
 
             <!-- Display in results state -->
@@ -72,20 +92,20 @@
                     android:paddingTop="@dimen/results_text_top_padding"
                     android:paddingBottom="@dimen/results_text_bottom_padding"
                     android:layout_height="wrap_content"/>
+                <Button
+                    android:id="@+id/decide_again_button"
+                    android:text="@string/decide_again_button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/decide_button_background"
+                    android:textColor="@color/colorLight"
+                    android:textSize="@dimen/button_text_font_size"
+                    android:paddingLeft="@dimen/button_padding"
+                    android:paddingRight="@dimen/button_padding"
+                    android:layout_marginTop="@dimen/button_top_margin"
+                    android:gravity="center"/>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/decider_button"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/decide_button_background"
-                android:textColor="@color/colorLight"
-                android:textSize="@dimen/button_text_font_size"
-                android:paddingLeft="@dimen/button_padding"
-                android:paddingRight="@dimen/button_padding"
-                android:layout_marginTop="@dimen/button_top_margin"
-                android:gravity="center"/>
 
         </LinearLayout>
     </LinearLayout>

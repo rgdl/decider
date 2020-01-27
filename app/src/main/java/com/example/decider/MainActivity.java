@@ -2,7 +2,6 @@ package com.example.decider;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,7 +18,6 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     private static final int INTIAL_OPTION_COUNT = 2;
 
-    boolean decisionMade = false;
     ArrayList<Option> options = new ArrayList<>();
 
     TextView resultsText;
@@ -44,12 +42,16 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayout inputLayout = findViewById(R.id.input_content);
         LinearLayout resultsLayout = findViewById(R.id.results_content);
-        Button deciderButton = findViewById(R.id.decider_button);
-        deciderButton.setText(getString(R.string.decider_button_label_before));
-        deciderButton.setOnClickListener(v -> handleClickDeciderButton(deciderButton, inputLayout, resultsLayout));
 
-        Button addOptionButton = findViewById(R.id.add_option_button);
-        addOptionButton.setOnClickListener(v -> handleClickAddOptionButton(optionsListView));
+        findViewById(R.id.decider_button).setOnClickListener(
+                v -> handleClickDeciderButton(inputLayout, resultsLayout)
+        );
+        findViewById(R.id.decide_again_button).setOnClickListener(
+                v -> handleClickDecideAgainButton(inputLayout, resultsLayout)
+        );
+        findViewById(R.id.add_option_button).setOnClickListener(
+                v -> handleClickAddOptionButton(optionsListView)
+        );
 
         resultsText = findViewById(R.id.resultsText);
 
@@ -62,26 +64,22 @@ public class MainActivity extends AppCompatActivity {
         mAdView.loadAd(adRequest);
     }
 
-    void handleClickDeciderButton(Button deciderButton, LinearLayout inputLayout, LinearLayout resultsLayout) {
+    void handleClickDeciderButton(LinearLayout inputLayout, LinearLayout resultsLayout) {
         if (options.size() == 0) {
             return;
         }
-        if (!decisionMade) {
-            Random random = new Random();
-            String choice = options.get(random.nextInt(options.size())).getText();
-            resultsText.setText("Choose: " + choice);
 
-            decisionMade = true;
-            deciderButton.setText(getString(R.string.decider_button_label_after));
-            inputLayout.setVisibility(LinearLayout.GONE);
-            resultsLayout.setVisibility(LinearLayout.VISIBLE);
-        } else {
-            decisionMade = false;
-            deciderButton.setText(getString(R.string.decider_button_label_before));
-            inputLayout.setVisibility(LinearLayout.VISIBLE);
-            resultsLayout.setVisibility(LinearLayout.GONE);
-        }
+        Random random = new Random();
+        String choice = options.get(random.nextInt(options.size())).getText();
+        resultsText.setText("Choose: " + choice);
 
+        inputLayout.setVisibility(LinearLayout.GONE);
+        resultsLayout.setVisibility(LinearLayout.VISIBLE);
+    }
+
+    void handleClickDecideAgainButton(LinearLayout inputLayout, LinearLayout resultsLayout) {
+        inputLayout.setVisibility(LinearLayout.VISIBLE);
+        resultsLayout.setVisibility(LinearLayout.GONE);
     }
 
     void handleClickAddOptionButton(ListView optionsListView) {
