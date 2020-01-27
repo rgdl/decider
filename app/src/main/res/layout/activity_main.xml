@@ -28,84 +28,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Display in input state -->
-            <LinearLayout
-                android:id="@+id/input_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <Button
-                    android:id="@+id/add_option_button"
-                    android:text="@string/add_option_button_label"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:paddingLeft="@dimen/button_padding"
-                    android:paddingRight="@dimen/button_padding"
-                    android:background="@drawable/add_button_background"
-                    android:textColor="@color/colorLight"
-                    android:textSize="@dimen/button_text_font_size"
-                    android:layout_marginTop="@dimen/button_top_margin"
-                    android:layout_marginBottom="@dimen/button_bottom_margin"
-                    android:gravity="center"/>
-                <ListView
-                    android:divider="@null"
-                    android:id="@+id/options_list"
-                    android:layout_weight="50"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <!--
-                Use top button margin as bottom margin here, so it's not eaten into by option list
-                top margin
-                -->
-                <Button
-                    android:id="@+id/decider_button"
-                    android:text="@string/decider_button_label"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/decide_button_background"
-                    android:textColor="@color/colorLight"
-                    android:textSize="@dimen/button_text_font_size"
-                    android:paddingLeft="@dimen/button_padding"
-                    android:paddingRight="@dimen/button_padding"
-                    android:layout_marginTop="@dimen/button_top_margin"
-                    android:layout_marginBottom="@dimen/button_top_margin"
-                    android:gravity="center"/>
-            </LinearLayout>
-
-            <!-- Display in results state -->
-            <LinearLayout
-                android:id="@+id/results_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone">
-                <TextView
-                    android:id="@+id/resultsText"
-                    android:textColor="@color/colorLight"
-                    android:textSize="@dimen/default_font_size"
-                    android:layout_width="match_parent"
-                    android:layout_marginLeft="@dimen/results_text_horizontal_margin"
-                    android:layout_marginRight="@dimen/results_text_horizontal_margin"
-                    android:paddingTop="@dimen/results_text_top_padding"
-                    android:paddingBottom="@dimen/results_text_bottom_padding"
-                    android:layout_height="wrap_content"/>
-                <Button
-                    android:id="@+id/decide_again_button"
-                    android:text="@string/decide_again_button"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/decide_button_background"
-                    android:textColor="@color/colorLight"
-                    android:textSize="@dimen/button_text_font_size"
-                    android:paddingLeft="@dimen/button_padding"
-                    android:paddingRight="@dimen/button_padding"
-                    android:layout_marginTop="@dimen/button_top_margin"
-                    android:gravity="center"/>
-            </LinearLayout>
+                <include layout="@layout/option_input_layout"/>
+                <include layout="@layout/results_layout"/>
 
         </LinearLayout>
     </LinearLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/input_content"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/add_option_button"
+        android:text="@string/add_option_button_label"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:paddingLeft="@dimen/button_padding"
+        android:paddingRight="@dimen/button_padding"
+        android:background="@drawable/add_button_background"
+        android:textColor="@color/colorLight"
+        android:textSize="@dimen/button_text_font_size"
+        android:layout_marginTop="@dimen/button_top_margin"
+        android:layout_marginBottom="@dimen/button_bottom_margin"
+        android:gravity="center"/>
+    <ListView
+        android:divider="@null"
+        android:id="@+id/options_list"
+        android:layout_weight="50"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <!--
+    Use top button margin as bottom margin here, so it's not eaten into by option list
+    top margin
+    -->
+    <Button
+        android:id="@+id/decider_button"
+        android:text="@string/decider_button_label"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/decide_button_background"
+        android:textColor="@color/colorLight"
+        android:textSize="@dimen/button_text_font_size"
+        android:paddingLeft="@dimen/button_padding"
+        android:paddingRight="@dimen/button_padding"
+        android:layout_marginTop="@dimen/button_top_margin"
+        android:layout_marginBottom="@dimen/button_top_margin"
+        android:gravity="center"/>
+
+</LinearLayout>
