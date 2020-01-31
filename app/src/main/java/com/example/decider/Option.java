@@ -1,12 +1,17 @@
 package com.example.decider;
 
 class Option {
-    private String text;
-    private String placeHolder;
+    String text;
+    String placeHolder;
 
     Option(int optionNumber) {
         text = "";
         placeHolder = String.format("Option %d", optionNumber);
+    }
+
+    Option(String _text, String _placeHolder) {
+        text = _text;
+        placeHolder = _placeHolder;
     }
 
     String getText() {

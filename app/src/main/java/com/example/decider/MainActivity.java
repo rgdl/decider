@@ -20,7 +20,17 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Option> options = new ArrayList<>();
 
+    String DECISION_MADE_KEY = "DECISION_MADE";
+    String RESULTS_TEXT_KEY = "RESULTS_TEXT";
+    String OPTIONS_LIST_LABELS_KEY = "OPTIONS_LIST_LABELS";
+    String OPTIONS_LIST_PLACEHOLDERS_KEY = "OPTIONS_LIST_PLACEHOLDERS";
+
     TextView resultsText;
+
+    LinearLayout inputLayout;
+    LinearLayout resultsLayout;
+
+    boolean decisionMade = false;
 
     private AdView mAdView;
 
@@ -33,27 +43,46 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        for (int i = 0; i < INTIAL_OPTION_COUNT; i++) {
-            options.add(defaultOptionText(i + 1));
-        }
-
         ListView optionsListView = findViewById(R.id.options_list);
         optionsListView.setAdapter(new OptionAdapter(this, options));
 
-        LinearLayout inputLayout = findViewById(R.id.input_content);
-        LinearLayout resultsLayout = findViewById(R.id.results_content);
+        inputLayout = findViewById(R.id.input_content);
+        resultsLayout = findViewById(R.id.results_content);
 
-        findViewById(R.id.decider_button).setOnClickListener(
-                v -> handleClickDeciderButton(inputLayout, resultsLayout)
-        );
-        findViewById(R.id.decide_again_button).setOnClickListener(
-                v -> handleClickDecideAgainButton(inputLayout, resultsLayout)
-        );
-        findViewById(R.id.add_option_button).setOnClickListener(
-                v -> handleClickAddOptionButton(optionsListView)
-        );
+        findViewById(R.id.decider_button).setOnClickListener(v -> handleClickDeciderButton());
+        findViewById(R.id.decide_again_button).setOnClickListener(v -> handleClickDecideAgainButton());
+        findViewById(R.id.add_option_button).setOnClickListener(v -> handleClickAddOptionButton(optionsListView));
 
         resultsText = findViewById(R.id.resultsText);
+
+        if (savedInstanceState != null) {
+            // Retrieve the necessary state data for resuming where we left off:
+            // - options list
+            // - results text
+            // - decisionMade
+
+            decisionMade = (savedInstanceState.getInt(DECISION_MADE_KEY) == 1);
+            resultsText.setText(savedInstanceState.getString(RESULTS_TEXT_KEY));
+
+            ArrayList<String> optionListLabels = savedInstanceState.getStringArrayList(OPTIONS_LIST_LABELS_KEY);
+            ArrayList<String> optionListPlaceholders = savedInstanceState.getStringArrayList(OPTIONS_LIST_PLACEHOLDERS_KEY);
+
+            for (int i = 0; i < optionListLabels.size(); i++) {
+                options.add(new Option(optionListLabels.get(i), optionListPlaceholders.get(i)));
+            }
+
+            if (decisionMade) {
+                showDecisionView();
+            } else {
+                showOptionsListView();
+            }
+        } else {
+            // default values
+            for (int i = 0; i < INTIAL_OPTION_COUNT; i++) {
+                options.add(defaultOptionText(i + 1));
+            }
+            showOptionsListView();
+        }
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -64,7 +93,24 @@ public class MainActivity extends AppCompatActivity {
         mAdView.loadAd(adRequest);
     }
 
-    void handleClickDeciderButton(LinearLayout inputLayout, LinearLayout resultsLayout) {
+    @Override
+    public void onSaveInstanceState(Bundle stateToSave) {
+        stateToSave.putInt(DECISION_MADE_KEY, decisionMade ? 1 : 0);
+        stateToSave.putString(RESULTS_TEXT_KEY, String.valueOf(resultsText.getText()));
+
+        // No need to store whole Option, just store the text and placeholders, then recreate
+        ArrayList<String> optionListLabels = new ArrayList<>();
+        ArrayList<String> optionListPlaceholders = new ArrayList<>();
+        for (Option option : options) {
+            optionListLabels.add(option.text);
+            optionListPlaceholders.add(option.placeHolder);
+        }
+        stateToSave.putStringArrayList(OPTIONS_LIST_LABELS_KEY, optionListLabels);
+        stateToSave.putStringArrayList(OPTIONS_LIST_PLACEHOLDERS_KEY, optionListPlaceholders);
+        super.onSaveInstanceState(stateToSave);
+    }
+
+    void handleClickDeciderButton() {
         if (options.size() == 0) {
             return;
         }
@@ -72,14 +118,23 @@ public class MainActivity extends AppCompatActivity {
         Random random = new Random();
         String choice = options.get(random.nextInt(options.size())).getText();
         resultsText.setText("Choose: " + choice);
-
-        inputLayout.setVisibility(LinearLayout.GONE);
-        resultsLayout.setVisibility(LinearLayout.VISIBLE);
+        decisionMade = true;
+        showDecisionView();
     }
 
-    void handleClickDecideAgainButton(LinearLayout inputLayout, LinearLayout resultsLayout) {
+    void handleClickDecideAgainButton() {
+        decisionMade = false;
+        showOptionsListView();
+    }
+
+    void showOptionsListView() {
         inputLayout.setVisibility(LinearLayout.VISIBLE);
         resultsLayout.setVisibility(LinearLayout.GONE);
+    }
+
+    void showDecisionView() {
+        inputLayout.setVisibility(LinearLayout.GONE);
+        resultsLayout.setVisibility(LinearLayout.VISIBLE);
     }
 
     void handleClickAddOptionButton(ListView optionsListView) {
