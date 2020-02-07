@@ -36,6 +36,5 @@
         > Monitor traffic, respond to issues in comments, update app to address issues
 - animate transition between states (https://developer.android.com/training/animation/overview#transitions)
 - animate option add/delete?
-- add intent filters: https://developer.android.com/studio/write/app-link-indexing#intent
 - user testing
 - don't forget to uncomment my real ad id before launch
