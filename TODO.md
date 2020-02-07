@@ -7,19 +7,19 @@
     + pick keywords to contrast with what's in the competitors' text (concatenate all fields to get this)
 * SEO summary:
     + keywords
-        > unique and accessible title, focused and not too long
-        > use keywords that my competitors don't (do keywords here just refer to words that are in the description? sounds like other fields too)
+        > use keywords that my competitors don't
         > the URL is important for keywords, and can't be changed later
-        > developer name also keywords
+        > developer name also keywords (Transformer Studio)
     + title
         > "B: K" name format e.g. "Google Maps – GPS Navigation"
+        > unique and accessible title, focused and not too long
         > Short brand name, then squeeze in keywords
     + description
         * both
             > Focus on USERS in the description, and what they'll get out of the app
             > Up to 5 repetitions of a keyword across the 2 descriptions
         * short
-            > short description as long as possible
+            > short description as long as possible (80 chars max; maybe this isn't a thing anymore? If not, just concatenate with long description)
             > short description should be about values, not features, and include a call to action
             > emoji in short description
         * long
@@ -30,7 +30,7 @@
             > main description should contain all keywords (more than once OK, but not unnaturally repetitive). Best ones in first and last line
             > include a "call to action" with a sense of urgency
     + misc
-        > Include screenshots
+        > Include screenshots (jpeg or 24-bit png, max dimension < 2 * min dimension, dimensions between 320 px and 3840 px)
     + after launch
         > Consider localised versions for different languages
         > Monitor traffic, respond to issues in comments, update app to address issues
