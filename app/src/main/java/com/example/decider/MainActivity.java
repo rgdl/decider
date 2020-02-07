@@ -2,6 +2,9 @@ package com.example.decider;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Scene;
+import android.transition.TransitionManager;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
     boolean decisionMade = false;
 
+    private ViewGroup mSceneRoot;
+    private Scene optionsScene;
+    private Scene resultsScene;
+
     private AdView mAdView;
 
     private Option defaultOptionText(int optionNumber) {
@@ -54,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.add_option_button).setOnClickListener(v -> handleClickAddOptionButton(optionsListView));
 
         resultsText = findViewById(R.id.resultsText);
+
+        mSceneRoot = (ViewGroup) findViewById(R.id.scene_root);
+        optionsScene = new Scene(mSceneRoot, (ViewGroup) mSceneRoot.findViewById(R.id.input_content));
+        resultsScene = new Scene(mSceneRoot, (ViewGroup) mSceneRoot.findViewById(R.id.results_content));
 
         if (savedInstanceState != null) {
             // Retrieve the necessary state data for resuming where we left off:
@@ -128,13 +139,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void showOptionsListView() {
-        inputLayout.setVisibility(LinearLayout.VISIBLE);
-        resultsLayout.setVisibility(LinearLayout.GONE);
+        TransitionManager.go(optionsScene);
     }
 
     void showDecisionView() {
-        inputLayout.setVisibility(LinearLayout.GONE);
-        resultsLayout.setVisibility(LinearLayout.VISIBLE);
+        TransitionManager.go(resultsScene);
     }
 
     void handleClickAddOptionButton(ListView optionsListView) {
