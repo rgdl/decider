@@ -41,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     private AdView mAdView;
 
-    private Option defaultOptionText(int optionNumber) {
-        return new Option(optionNumber);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // default values
             for (int i = 0; i < INTIAL_OPTION_COUNT; i++) {
-                options.add(defaultOptionText(i + 1));
+                options.add(new Option(i + 1));
             }
             showOptionsListView();
         }
@@ -147,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void handleClickAddOptionButton(ListView optionsListView) {
-        options.add(defaultOptionText(options.size() + 1));
-        optionsListView.invalidateViews();
+        ((OptionAdapter) optionsListView.getAdapter()).addOption();
     }
 }

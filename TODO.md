@@ -1,6 +1,5 @@
 # TODO
 
-- animate option add/delete (https://stackoverflow.com/questions/3928193/how-to-animate-addition-or-removal-of-android-listview-rows)
 - user testing
     * when adding an option, add to top or bottom? either way, scroll to make it visible
     * (T) when clicking in a field, indicate that it's possible to type (hide placeholder text)

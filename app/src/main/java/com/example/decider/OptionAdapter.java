@@ -58,10 +58,19 @@ public class OptionAdapter extends BaseAdapter implements ListAdapter {
 
         Button deleteButton = view.findViewById(R.id.delete_option_button);
         deleteButton.setOnClickListener(v -> {
-            options.remove(position);
-            notifyDataSetChanged();
+            deleteOption(position);
         });
 
         return view;
+    }
+
+    void addOption() {
+        options.add(new Option(options.size() + 1));
+        notifyDataSetChanged();
+    }
+
+    void deleteOption(int position) {
+        options.remove(position);
+        notifyDataSetChanged();
     }
 }
