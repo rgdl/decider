@@ -25,7 +25,9 @@
         android:id="@+id/options_list"
         android:layout_weight="50"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"/>
     <!--
     Use top button margin as bottom margin here, so it's not eaten into by option list
     top margin
