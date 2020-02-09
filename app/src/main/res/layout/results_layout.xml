@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:gravity="center_vertical">
-     <TextView
+    <TextView
         android:id="@+id/resultsText"
         android:textColor="@color/colorLight"
         android:textSize="@dimen/default_font_size"
@@ -16,6 +16,7 @@
         android:layout_marginRight="@dimen/results_text_horizontal_margin"
         android:paddingTop="@dimen/results_text_top_padding"
         android:paddingBottom="@dimen/results_text_bottom_padding"
+        android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/decide_again_button"
