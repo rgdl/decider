@@ -5,4 +5,5 @@
     <color name="colorAdd">#00779E</color>
     <color name="colorLight">#FFF5F0</color>
     <color name="colorDark">#202740</color>
+    <color name="colorTransparentDecide">#88506BCC</color>
 </resources>

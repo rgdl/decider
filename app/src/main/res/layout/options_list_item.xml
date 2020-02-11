@@ -13,7 +13,7 @@
         android:layout_weight="0.7"
         android:layout_height="match_parent"
         android:textColor="@color/colorDecide"
-        android:textColorHint="@color/colorDecide"
+        android:textColorHint="@drawable/option_selector"
         android:textSize="@dimen/default_font_size"
         android:paddingLeft="@dimen/option_text_padding_horizontal"
         android:paddingRight="@dimen/option_text_padding_horizontal"

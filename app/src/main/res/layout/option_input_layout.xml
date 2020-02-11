@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/input_content"
     android:orientation="vertical"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -24,9 +25,11 @@
         android:divider="@null"
         android:id="@+id/options_list"
         android:layout_weight="50"
+        android:descendantFocusability="beforeDescendants"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:stackFromBottom="true"
+        android:focusable="false"
         android:transcriptMode="alwaysScroll"/>
     <!--
     Use top button margin as bottom margin here, so it's not eaten into by option list
