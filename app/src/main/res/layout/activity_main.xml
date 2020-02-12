@@ -18,10 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-            <!--        This one is real:
-                        ads:adUnitId="ca-app-pub-3217219709513229/9716741526">
-            -->
+            ads:adUnitId="ca-app-pub-3217219709513229/9716741526">
         </com.google.android.gms.ads.AdView>
         <LinearLayout
             android:id="@+id/scene_root"
