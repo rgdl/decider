@@ -1,4 +1,4 @@
-package com.example.decider;
+package com.decider.assistant;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.example.decider;
+package com.decider.assistant;
 
 class Option {
     String text;

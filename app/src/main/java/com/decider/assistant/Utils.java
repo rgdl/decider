@@ -1,4 +1,4 @@
-package com.example.decider;
+package com.decider.assistant;
 
 import android.app.Activity;
 import android.view.MotionEvent;

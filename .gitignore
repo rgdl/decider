@@ -10,3 +10,5 @@
 *.csv
 *ipynb*
 Screenshots
+deployment_cert.der
+keystore.jks
