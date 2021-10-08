@@ -9,16 +9,18 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.mopub.common.MoPub;
+import com.mopub.common.SdkConfiguration;
+import com.mopub.common.SdkInitializationListener;
+import com.mopub.mobileads.MoPubErrorCode;
+import com.mopub.mobileads.MoPubView;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+import static com.mopub.common.logging.MoPubLog.LogLevel.NONE;
+
+public class MainActivity extends AppCompatActivity implements MoPubView.BannerAdListener {
     private static final int INTIAL_OPTION_COUNT = 2;
 
     ArrayList<Option> options = new ArrayList<>();
@@ -35,11 +37,28 @@ public class MainActivity extends AppCompatActivity {
 
     boolean decisionMade = false;
 
-    private ViewGroup mSceneRoot;
     private Scene optionsScene;
     private Scene resultsScene;
 
-    private AdView mAdView;
+    // Setup for MoPub Ad
+    private MoPubView bannerAd;
+
+    private SdkInitializationListener initSdkListener() {
+        return () -> {
+            // SDK initialization complete. You may now request ads.
+        };
+    }
+
+    @Override
+    public void onBannerLoaded(MoPubView bannerAd) {}
+    @Override
+    public void onBannerFailed(MoPubView moPubView, MoPubErrorCode moPubErrorCode) {}
+    @Override
+    public void onBannerClicked(MoPubView moPubView) {}
+    @Override
+    public void onBannerExpanded(MoPubView moPubView) {}
+    @Override
+    public void onBannerCollapsed(MoPubView moPubView) {}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
         resultsText = findViewById(R.id.resultsText);
 
-        mSceneRoot = (ViewGroup) findViewById(R.id.scene_root);
-        optionsScene = new Scene(mSceneRoot, (ViewGroup) mSceneRoot.findViewById(R.id.input_content));
-        resultsScene = new Scene(mSceneRoot, (ViewGroup) mSceneRoot.findViewById(R.id.results_content));
+        ViewGroup sceneRoot = (ViewGroup) findViewById(R.id.scene_root);
+        optionsScene = new Scene(sceneRoot, (ViewGroup) sceneRoot.findViewById(R.id.input_content));
+        resultsScene = new Scene(sceneRoot, (ViewGroup) sceneRoot.findViewById(R.id.results_content));
 
         if (savedInstanceState != null) {
             // Retrieve the necessary state data for resuming where we left off:
@@ -91,15 +110,17 @@ public class MainActivity extends AppCompatActivity {
             showOptionsListView();
         }
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {}
-        });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        final SdkConfiguration.Builder configBuilder = new SdkConfiguration.Builder(Utils.AD_UNIT_ID);
 
-        Utils.setupUI(this, mSceneRoot);
+        configBuilder.withLogLevel(NONE);
+        MoPub.initializeSdk(this, configBuilder.build(), initSdkListener());
+
+        bannerAd = (MoPubView) findViewById(R.id.adview);
+        bannerAd.setAdUnitId(Utils.AD_UNIT_ID);
+        bannerAd.loadAd();
+        bannerAd.setBannerAdListener(this);
+
+        Utils.setupUI(this, sceneRoot);
     }
 
     @Override

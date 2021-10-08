@@ -43,4 +43,10 @@ class Utils {
             }
         }
     }
+
+    // Live
+    public static String AD_UNIT_ID = "2f29b4e65ebb445882ebf3fe6d1ac3a5";
+
+    // Test
+//    public static String AD_UNIT_ID = "b195f8dd8ded45fe847ad89ed1d016da";
 }
