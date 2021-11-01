@@ -20,6 +20,7 @@ import java.util.Random;
 
 import static com.mopub.common.logging.MoPubLog.LogLevel.NONE;
 
+// TODO: retain list on restart
 public class MainActivity extends AppCompatActivity implements MoPubView.BannerAdListener {
     private static final int INTIAL_OPTION_COUNT = 2;
 
