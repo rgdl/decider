@@ -32,8 +32,6 @@ repositories {
 
 dependencies {
     implementation 'com.adcolony:sdk:4.6.5'
-    implementation 'com.mopub.mediation:adcolony:4.6.4.0'
-    implementation('com.mopub:mopub-sdk:5.18.0@aar') { transitive = true }
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'

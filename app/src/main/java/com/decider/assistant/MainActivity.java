@@ -12,12 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.mopub.common.MoPub;
-import com.mopub.common.SdkConfiguration;
-import com.mopub.common.SdkInitializationListener;
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubView;
-
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,9 +19,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static com.mopub.common.logging.MoPubLog.LogLevel.NONE;
-
-public class MainActivity extends AppCompatActivity implements MoPubView.BannerAdListener {
+public class MainActivity extends AppCompatActivity {
     private static final int INTIAL_OPTION_COUNT = 2;
 
     ArrayList<Option> options = new ArrayList<>();
@@ -49,19 +41,12 @@ public class MainActivity extends AppCompatActivity implements MoPubView.BannerA
     private Scene optionsScene;
     private Scene resultsScene;
 
-    private SdkInitializationListener initSdkListener() {
-        return () -> {
-            // SDK initialization complete. You may now request ads.
-        };
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setupViews();
         setupHandlers();
-        setupAd();
         retrievePreferences();
 
         if (decisionMade) {
@@ -92,19 +77,6 @@ public class MainActivity extends AppCompatActivity implements MoPubView.BannerA
         sceneRoot = (ViewGroup) findViewById(R.id.scene_root);
         optionsScene = new Scene(sceneRoot, (ViewGroup) sceneRoot.findViewById(R.id.input_content));
         resultsScene = new Scene(sceneRoot, (ViewGroup) sceneRoot.findViewById(R.id.results_content));
-    }
-
-    void setupAd() {
-        final SdkConfiguration.Builder configBuilder = new SdkConfiguration.Builder(Utils.AD_UNIT_ID);
-
-        configBuilder.withLogLevel(NONE);
-        MoPub.initializeSdk(this, configBuilder.build(), initSdkListener());
-
-        // Setup for MoPub Ad
-        MoPubView bannerAd = (MoPubView) findViewById(R.id.adview);
-        bannerAd.setAdUnitId(Utils.AD_UNIT_ID);
-        bannerAd.loadAd();
-        bannerAd.setBannerAdListener(this);
     }
 
     @Override
@@ -191,16 +163,4 @@ public class MainActivity extends AppCompatActivity implements MoPubView.BannerA
     void handleClickAddOptionButton(ListView optionsListView) {
         ((OptionAdapter) optionsListView.getAdapter()).addOption();
     }
-
-    @Override
-    public void onBannerLoaded(@NotNull MoPubView bannerAd) {}
-    @Override
-    public void onBannerFailed(MoPubView moPubView, MoPubErrorCode moPubErrorCode) {}
-    @Override
-    public void onBannerClicked(MoPubView moPubView) {}
-    @Override
-    public void onBannerExpanded(MoPubView moPubView) {}
-    @Override
-    public void onBannerCollapsed(MoPubView moPubView) {}
-
 }
