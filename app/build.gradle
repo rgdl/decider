@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.decider.assistant"
         minSdkVersion 19
-        targetSdkVersion 29
-        versionCode 4
-        versionName "1.3"
+        targetSdkVersion 30
+        versionCode 5
+        versionName "1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -31,10 +31,14 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.adcolony:sdk:4.6.5'
+    implementation 'com.mopub.mediation:adcolony:4.6.4.0'
     implementation('com.mopub:mopub-sdk:5.18.0@aar') { transitive = true }
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'org.jetbrains:annotations:15.0'
-    implementation 'com.google.android.gms:play-services-ads:20.4.0'
+    implementation 'com.google.android.gms:play-services-ads:20.5.0'
+    implementation 'com.adcolony:sdk:4.6.5'
+    implementation 'com.google.android.gms:play-services-ads-identifier:17.1.0'
 }
