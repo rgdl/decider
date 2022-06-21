@@ -4,11 +4,11 @@ android {
     compileSdkVersion 31
     defaultConfig {
         applicationId "com.decider.assistant"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 5
         versionName "1.4"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
     buildTypes {
@@ -18,13 +18,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
+    namespace 'com.decider.assistant'
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     maven {
         url 'https://maven.google.com'
     }
@@ -33,10 +37,22 @@ repositories {
 dependencies {
     implementation 'com.adcolony:sdk:4.6.5'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'org.jetbrains:annotations:15.0'
-    implementation 'com.google.android.gms:play-services-ads:20.5.0'
+    implementation 'com.google.android.gms:play-services-ads:21.0.0'
     implementation 'com.adcolony:sdk:4.6.5'
-    implementation 'com.google.android.gms:play-services-ads-identifier:17.1.0'
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
+    implementation 'com.applovin:applovin-sdk:11.4.3'
+
+    androidTestImplementation "androidx.test:runner:1.4.0"
+    androidTestImplementation "androidx.test:rules:1.4.0"
+    // Optional -- UI testing with Espresso
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
+    // Optional -- UI testing with UI Automator
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:2.2.0"
+    // Optional -- UI testing with Compose
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.1.1"
+
+    androidTestImplementation "com.google.truth:truth:1.1.3"
 }

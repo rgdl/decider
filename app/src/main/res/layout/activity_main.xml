@@ -13,14 +13,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <LinearLayout
+            android:id="@+id/ad_wrapper"
             android:layout_marginTop="@dimen/button_top_margin"
             android:layout_height="50dp"
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_gravity="center"
-            >
-
-        </LinearLayout>
+            />
         <LinearLayout
             android:id="@+id/scene_root"
             android:layout_width="match_parent"

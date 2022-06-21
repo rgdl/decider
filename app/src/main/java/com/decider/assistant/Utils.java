@@ -44,7 +44,5 @@ class Utils {
         }
     }
 
-    public static String AD_UNIT_ID = BuildConfig.DEBUG ?
-        "b195f8dd8ded45fe847ad89ed1d016da" :
-        "2f29b4e65ebb445882ebf3fe6d1ac3a5";
+    public static String AD_UNIT_ID = "e7ad1df656db28c6";
 }

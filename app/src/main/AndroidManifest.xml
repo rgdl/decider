@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.decider.assistant">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -18,6 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="applovin.sdk.key"
+            android:value="9Tptogu71CP_QXNkpnM4L1vBcXNdEGsGJXgLyA_75cuRBtuilyDzKmumuuswepbkuxU_qLuvQGTRXr-eDlL84r"
+            />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3217219709513229~9940102809"/>
