@@ -24,8 +24,11 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.Random;
 
+
+// TODO: refer to this: https://github.com/AppLovin/AppLovin-MAX-SDK-Android/tree/master/AppLovin%20MAX%20Demo%20App%20-%20Kotlin
+
 public class MainActivity extends AppCompatActivity implements MaxAdViewAdListener {
-    private static final int INTIAL_OPTION_COUNT = 2;
+    private static final int INITIAL_OPTION_COUNT = 2;
 
     ArrayList<Option> options = new ArrayList<>();
 
@@ -49,7 +52,8 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupAds();
+        //TODO: convert to test ads!
+//        setupAds();
         setupViews();
         setupHandlers();
         retrievePreferences();
@@ -156,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
         } catch (JSONException e) {
             e.printStackTrace();
             // Default starting Options
-            for (int i = 0; i < INTIAL_OPTION_COUNT; i++) {
+            for (int i = 0; i < INITIAL_OPTION_COUNT; i++) {
                 options.add(new Option(i + 1));
             }
         }

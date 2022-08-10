@@ -21,6 +21,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+    testOptions {
+        animationsDisabled = true
+    }
     packagingOptions {
         resources.excludes.add("META-INF/*")
     }
@@ -45,6 +48,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
     implementation 'com.applovin:applovin-sdk:11.4.3'
 
+    debugImplementation "androidx.test:core:1.4.0"
     androidTestImplementation "androidx.test:runner:1.4.0"
     androidTestImplementation "androidx.test:rules:1.4.0"
     // Optional -- UI testing with Espresso
@@ -53,6 +57,4 @@ dependencies {
     androidTestImplementation "androidx.test.uiautomator:uiautomator:2.2.0"
     // Optional -- UI testing with Compose
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.1.1"
-
-    androidTestImplementation "com.google.truth:truth:1.1.3"
 }

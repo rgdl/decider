@@ -14,8 +14,8 @@ import android.widget.ListAdapter;
 import java.util.ArrayList;
 
 public class OptionAdapter extends BaseAdapter implements ListAdapter {
-    private ArrayList<Option> options;
-    private Context context;
+    private final ArrayList<Option> options;
+    private final Context context;
 
     public OptionAdapter(Context context, ArrayList<Option> options) {
         this.options = options;
