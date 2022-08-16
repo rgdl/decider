@@ -1,15 +1,14 @@
 package com.decider.assistant;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.transition.Scene;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,9 +17,7 @@ import com.applovin.mediation.MaxAdViewAdListener;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.ads.MaxAdView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -28,46 +25,60 @@ import java.util.Random;
 // TODO: refer to this: https://github.com/AppLovin/AppLovin-MAX-SDK-Android/tree/master/AppLovin%20MAX%20Demo%20App%20-%20Kotlin
 
 public class MainActivity extends AppCompatActivity implements MaxAdViewAdListener {
-    private static final int INITIAL_OPTION_COUNT = 2;
+    private TextView resultsText;
+    private boolean decisionMade;
 
-    ArrayList<Option> options = new ArrayList<>();
-
-    String DECIDER_SHARED_PREFERENCES = "DECIDER_SHARED_PREFERENCES";
-    String DECISION_MADE_KEY = "DECISION_MADE";
-    String RESULTS_TEXT_KEY = "RESULTS_TEXT";
-    String OPTIONS_LIST_LABELS_KEY = "OPTIONS_LIST_LABELS";
-    String OPTIONS_LIST_PLACEHOLDERS_KEY = "OPTIONS_LIST_PLACEHOLDERS";
-
-    TextView resultsText;
-    LinearLayout inputLayout;
-    LinearLayout resultsLayout;
-    ListView optionsListView;
-    ViewGroup sceneRoot;
-
-    boolean decisionMade = false;
+    private ListView optionsListView;
+    private ViewGroup sceneRoot;
 
     private Scene optionsScene;
     private Scene resultsScene;
 
+    private static final String LOG_TAG = "DeciderMain";
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupViews();
+        if (BuildConfig.DEBUG) {
+            Log.i(LOG_TAG, "Creating activity, retrieving preferences");
+        }
+        AppState appState = PreferenceStorer.retrievePreferences(this);
+        applyAppState(appState);
+
         //TODO: convert to test ads!
 //        setupAds();
-        setupViews();
         setupHandlers();
-        retrievePreferences();
 
         if (decisionMade) {
             showDecisionView();
         } else {
             showOptionsListView();
         }
-
         Utils.setupUI(this, sceneRoot);
     }
 
-    void setupAds() {
+    void applyAppState(AppState appState) {
+        if (BuildConfig.DEBUG) {
+            Log.i(LOG_TAG, "Applying app state");
+        }
+        decisionMade = appState.getDecisionMade();
+        resultsText.setText(appState.getResultsText());
+        optionsListView.setAdapter(new OptionAdapter(this, appState.getOptions()));
+    }
+
+    AppState extractAppState() {
+        if (BuildConfig.DEBUG) {
+            Log.i(LOG_TAG, "Extracting app state");
+        }
+        return new AppState(
+            decisionMade,
+            resultsText.getText().toString(),
+            ((OptionAdapter) optionsListView.getAdapter()).getOptions()
+        );
+    }
+
+    private void setupAds() {
         MaxAdView adView = new MaxAdView(Utils.AD_UNIT_ID, this);
         adView.setListener(this);
 
@@ -89,22 +100,28 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
         adView.loadAd();
     }
 
-    void setupHandlers() {
-        findViewById(R.id.decider_button).setOnClickListener(v -> handleClickDeciderButton());
-        findViewById(R.id.decide_again_button).setOnClickListener(v -> handleClickDecideAgainButton());
-        findViewById(R.id.add_option_button).setOnClickListener(v -> handleClickAddOptionButton(optionsListView));
+    private void setupHandlers() {
+        if (BuildConfig.DEBUG) {
+            Log.i(LOG_TAG, "Setting up handlers");
+        }
+        findViewById(R.id.decider_button).setOnClickListener(
+            v -> handleClickDeciderButton()
+        );
+        findViewById(R.id.decide_again_button).setOnClickListener(
+            v -> handleClickDecideAgainButton()
+        );
+        findViewById(R.id.add_option_button).setOnClickListener(
+            v -> handleClickAddOptionButton(optionsListView)
+        );
     }
 
-    void setupViews() {
+    private void setupViews() {
+        if (BuildConfig.DEBUG) {
+            Log.i(LOG_TAG, "Setting up views");
+        }
         setContentView(R.layout.activity_main);
-
         optionsListView = findViewById(R.id.options_list);
-        optionsListView.setAdapter(new OptionAdapter(this, options));
-
-        inputLayout = findViewById(R.id.input_content);
-        resultsLayout = findViewById(R.id.results_content);
         resultsText = findViewById(R.id.resultsText);
-
         sceneRoot = (ViewGroup) findViewById(R.id.scene_root);
         optionsScene = new Scene(sceneRoot, (ViewGroup) sceneRoot.findViewById(R.id.input_content));
         resultsScene = new Scene(sceneRoot, (ViewGroup) sceneRoot.findViewById(R.id.results_content));
@@ -112,73 +129,41 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
 
     @Override
     public void onPause() {
-        storePreferences();
+        AppState appState = extractAppState();
+        if (BuildConfig.DEBUG) {
+            Log.i(
+                LOG_TAG,
+                String.format("Pausing activity, storing preferences: %s", appState.toString())
+            );
+        }
+        PreferenceStorer.storePreferences(this, appState);
         super.onPause();
     }
 
-    void storePreferences() {
-        SharedPreferences prefs = getSharedPreferences(DECIDER_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.clear();
-
-        editor.putInt(DECISION_MADE_KEY, decisionMade ? 1 : 0);
-        editor.putString(RESULTS_TEXT_KEY, String.valueOf(resultsText.getText()));
-
-        JSONArray labels = new JSONArray();
-        JSONArray placeholders = new JSONArray();
-        for (int i = 0; i < options.size(); i++) {
-            labels.put(options.get(i).text);
-            placeholders.put(options.get(i).placeHolder);
+    private void handleClickDeciderButton() {
+        ArrayList<Option> options = ((OptionAdapter) optionsListView.getAdapter()).getOptions();
+        if (BuildConfig.DEBUG) {
+            Log.i(LOG_TAG, "Clicked 'Decide' button");
+            Log.i(LOG_TAG, String.format("Options = %s", options));
         }
-        editor.putString(OPTIONS_LIST_LABELS_KEY, labels.toString());
-        editor.putString(OPTIONS_LIST_PLACEHOLDERS_KEY, placeholders.toString());
-
-        editor.apply();
-    }
-
-    void retrievePreferences() {
-        SharedPreferences prefs = getSharedPreferences(DECIDER_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        decisionMade = prefs.getInt(DECISION_MADE_KEY, 0) == 1;
-        resultsText.setText(prefs.getString(RESULTS_TEXT_KEY, ""));
-
-        try {
-            String optionsListLabelsString = prefs.getString(OPTIONS_LIST_LABELS_KEY, "");
-            String optionListPlaceholdersString = prefs.getString(OPTIONS_LIST_PLACEHOLDERS_KEY, "");
-
-            if (optionsListLabelsString.equals("")) {
-                throw new JSONException("No existing options data - is this the first time?");
-            }
-
-            JSONArray optionListLabels = new JSONArray(optionsListLabelsString);
-            JSONArray optionListPlaceholders = new JSONArray(optionListPlaceholdersString);
-            for (int i = 0; i < optionListLabels.length(); i++) {
-                String label = optionListLabels.get(i).toString();
-                String placeHolder = optionListPlaceholders.get(i).toString();
-                options.add(new Option(label, placeHolder));
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            // Default starting Options
-            for (int i = 0; i < INITIAL_OPTION_COUNT; i++) {
-                options.add(new Option(i + 1));
-            }
-        }
-    }
-
-    void handleClickDeciderButton() {
-        if (options.size() == 0) {
+        if (options.isEmpty()) {
             return;
         }
 
-        Random random = new Random();
-        String choice = options.get(random.nextInt(options.size())).getText();
-        resultsText.setText("Choose: " + choice);
+        Random random = new SecureRandom();
+        String choice = options.get(random.nextInt(options.size())).getDisplayText();
+        if (BuildConfig.DEBUG) {
+            Log.i(LOG_TAG, String.format("Chose %s", choice));
+        }
+        resultsText.setText(String.format("Choose: %s", choice));
         decisionMade = true;
         showDecisionView();
     }
 
-    void handleClickDecideAgainButton() {
+    private void handleClickDecideAgainButton() {
+        if (BuildConfig.DEBUG) {
+            Log.i(LOG_TAG, "Clicked 'DecideAgain' button");
+        }
         decisionMade = false;
         showOptionsListView();
     }
@@ -191,7 +176,10 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
         TransitionManager.go(resultsScene);
     }
 
-    void handleClickAddOptionButton(ListView optionsListView) {
+    private void handleClickAddOptionButton(ListView optionsListView) {
+        if (BuildConfig.DEBUG) {
+            Log.i(LOG_TAG, "Clicked 'Add Option' button");
+        }
         ((OptionAdapter) optionsListView.getAdapter()).addOption();
     }
 

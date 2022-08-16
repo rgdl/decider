@@ -3,23 +3,25 @@ package com.decider.assistant;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 
 import java.util.ArrayList;
 
-public class OptionAdapter extends BaseAdapter implements ListAdapter {
+public class OptionAdapter extends BaseAdapter {
     private final ArrayList<Option> options;
     private final Context context;
 
-    public OptionAdapter(Context context, ArrayList<Option> options) {
-        this.options = options;
+    private static final String LOG_TAG = "OptionAdapter";
+
+        OptionAdapter(Context context, ArrayList<Option> options) {
         this.context = context;
+        this.options = options;
     }
 
     @Override
@@ -28,13 +30,13 @@ public class OptionAdapter extends BaseAdapter implements ListAdapter {
     }
 
     @Override
-    public Option getItem(int pos) {
-        return options.get(pos);
+    public Option getItem(int position) {
+        return options.get(position);
     }
 
     @Override
-    public long getItemId(int pos) {
-        return pos;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -44,15 +46,21 @@ public class OptionAdapter extends BaseAdapter implements ListAdapter {
 
         Option option = getItem(position);
         EditText optionText = view.findViewById(R.id.option_text);
-        optionText.setHint(option.getText());
+        optionText.setHint(option.getDisplayText());
 
         optionText.addTextChangedListener(new TextWatcher() {
+            @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
+            @Override
             public void afterTextChanged(Editable s) {
+                if (BuildConfig.DEBUG) {
+                    Log.i(LOG_TAG, String.format("Update text to '%s'", s));
+                }
                 option.setText(s.toString());
             }
 
+            @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
@@ -65,12 +73,22 @@ public class OptionAdapter extends BaseAdapter implements ListAdapter {
     }
 
     void addOption() {
+        if (BuildConfig.DEBUG) {
+            Log.i(LOG_TAG, "Adding option");
+        }
         options.add(new Option(options.size() + 1));
         notifyDataSetChanged();
     }
 
-    void deleteOption(int position) {
+    private void deleteOption(int position) {
+        if (BuildConfig.DEBUG) {
+            Log.i(LOG_TAG, "Deleting option");
+        }
         options.remove(position);
         notifyDataSetChanged();
+    }
+
+    ArrayList<Option> getOptions() {
+        return options;
     }
 }
